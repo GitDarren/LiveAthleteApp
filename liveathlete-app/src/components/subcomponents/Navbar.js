@@ -1,9 +1,10 @@
 //components/Navbar.js
 
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types"; // ES6
 import Login from "../Login";
 import Logout from "../Logout";
-import { loginUser, logoutUser } from "../../actions";
+import { loginUser, logoutUser } from "../../actions/actions";
 
 export default class Navbar extends Component {
   render() {
@@ -12,7 +13,7 @@ export default class Navbar extends Component {
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="www.example.com">
             Quotes App
           </a>
           <div className="navbar-form">
@@ -34,7 +35,7 @@ export default class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string
-}
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string
+};

@@ -1,10 +1,12 @@
 //containers/App.js
 
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types"; // ES6
+
 import { connect } from "react-redux";
-import { loginUser, fetchQuote, fetchSecretQuote } from "../actions";
+import { loginUser, fetchQuote, fetchSecretQuote } from "../actions/actions";
 import Login from "../components/Login";
-import Navbar from "../components/Navbar";
+import Navbar from "./subcomponents/Navbar";
 import Quotes from "../components/Quotes";
 
 class App extends Component {
@@ -49,7 +51,7 @@ App.PropTypes = {
 //These props come from the applications's
 //state when it is started
 
-function mapStatetoProps(state) {
+function mapStateToProps(state) {
   const { quotes, auth } = state;
   const { quote, authenticated } = quotes;
   const { isAuthenticated, errorMessage } = auth;

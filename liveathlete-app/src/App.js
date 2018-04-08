@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import Admin from "./components/Admin";
 import TOS from "./components/Terms";
 import PPP from "./components/Privacy";
+import AuthApp from "./components/AuthApp";
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
         <Router>
           <Fragment>
             <Header />
+            <AuthApp />
             <Route exact path="/" component={TodoList} />
             <Route exact path="/about" component={About} />
             <Route exact path="/contact" component={Contact} />

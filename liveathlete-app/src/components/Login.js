@@ -1,6 +1,7 @@
 //components/Login.js
 
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types"; // ES6
 
 export default class Login extends Component {
   render() {
@@ -29,7 +30,7 @@ export default class Login extends Component {
           Login{" "}
         </button>
 
-        {errorMessage && <p style> {errorMesage} </p> //This may cause an error as Auth0 sample was <p style=>{errorMessage}</p>
+        {errorMessage && <p style={{ color: "red" }}> {errorMessage}</p> //This may cause an error as Auth0 sample was <p style=>{errorMessage}</p>
         }
       </div>
     );
@@ -46,7 +47,7 @@ export default class Login extends Component {
   }
 }
 
-Login.propTypes = {
+Login.PropTypes = {
   onLoginClick: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 };

@@ -1,5 +1,8 @@
 //actions.js
 
+//The middleware to capp the API for quotes
+import { CALL_API } from "../middleware/api";
+
 //There are three possible states for our login
 //process and we need actions for each of them
 
@@ -59,7 +62,7 @@ export function loginUser(creds) {
         } else {
           //If login was successful, set the token in local storage
           localStorage.setItem("id_token", user.id_token);
-          localStorage.setItem("id_token", user.access_token);
+          localStorage.setItem("access_token", user.access_token);
           //Dispatch the success action
           dispatch(receiveLogin(user));
         }
@@ -68,45 +71,73 @@ export function loginUser(creds) {
   };
 }
 
-
 //Three possible states for our logout process as well.
 //Since we are using JWTs, we just need to remove the token
 //from localStorage.  These actions are more useful if we
 //were calling the API to log the user out
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-export const LOGOUT_REQUEST = 'LOGOUT_SUCESS'
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCESS";
+export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 
-function requestLogout()    {
-    return {
-        type: LOGOUT_REQUEST,
-        isFetching: true,
-        isAuthenticated: true
-    }
+function requestLogout() {
+  return {
+    type: LOGOUT_REQUEST,
+    isFetching: true,
+    isAuthenticated: true
+  };
 }
 
 function receiveLogout() {
-    return {
-        type: LOGOUT_SUCCESS,
-        isFetching: false,
-        isAuthenticated: false
-    }
+  return {
+    type: LOGOUT_SUCCESS,
+    isFetching: false,
+    isAuthenticated: false
+  };
 }
 
 //Logs the user out
 
-export function logoutUser()    {
-    return dispatch => {
-        dispatch(requestLogout())
-        localStorage.removeItem('id_token')
-        localStorage.removeItem('access_token')
-        dispatch(receiveLogout())
-    }
+export function logoutUser() {
+  return dispatch => {
+    dispatch(requestLogout());
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("access_token");
+    dispatch(receiveLogout());
+  };
 }
 
 //We need to create a way for users to sign-up, but the
 //Auth0 does not provide an example
-//However the tutorial says we can do this with a 
+//However the tutorial says we can do this with a
 //POST request to localhost:3001/user
 //and the implementation would look similar to login flow.
+
+export const QUOTE_REQUEST = "QUOTE_REQUEST";
+export const QUOTE_SUCCESS = "QUOTE_SUCCESS";
+export const QUOTE_FAILURE = "QUOTE_FAILURE";
+
+//Use the API middleware to get a quote
+
+export function fetchQuote() {
+  return {
+    [CALL_API]: {
+      endpoint: "random-quote",
+      types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+    }
+  };
+}
+
+//Same Api middleware is used to get a
+// secret quote, but we set authenticated
+// to true so that the auth header is sent
+
+export function fetchSecretQuote() {
+  return {
+    [CALL_API]: {
+      endpoint: "protected/random-quote",
+      authenticated: true,
+      types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+    }
+  };
+}
