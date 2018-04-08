@@ -104,3 +104,9 @@ export function logoutUser()    {
         dispatch(receiveLogout())
     }
 }
+
+//We need to create a way for users to sign-up, but the
+//Auth0 does not provide an example
+//However the tutorial says we can do this with a 
+//POST request to localhost:3001/user
+//and the implementation would look similar to login flow.
