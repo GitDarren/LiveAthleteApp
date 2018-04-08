@@ -1,15 +1,12 @@
-//containers/App.js
-
 import React, { Component } from "react";
 import PropTypes from "prop-types"; // ES6
-
 import { connect } from "react-redux";
 import { loginUser, fetchQuote, fetchSecretQuote } from "../actions/actions";
 import Login from "../components/Login";
-import Navbar from "./subcomponents/Navbar";
+import Navbar from "../components/subcomponents/Navbar";
 import Quotes from "../components/Quotes";
 
-class App extends Component {
+class AuthApp extends Component {
   render() {
     const {
       dispatch,
@@ -18,7 +15,6 @@ class App extends Component {
       errorMessage,
       isSecretQuote
     } = this.props;
-
     return (
       <div>
         <Navbar
@@ -40,16 +36,13 @@ class App extends Component {
   }
 }
 
-App.PropTypes = {
-  dispatch: PropTypes.string,
+AuthApp.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   quote: PropTypes.string,
   isAuthenticated: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string,
   isSecretQuote: PropTypes.bool.isRequired
 };
-
-//These props come from the applications's
-//state when it is started
 
 function mapStateToProps(state) {
   const { quotes, auth } = state;
@@ -64,4 +57,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(AuthApp);
